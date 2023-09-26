@@ -15,7 +15,13 @@ public class RouteFollowed extends UriEntity<Long> {
     @Id
     private Long id;
 
+    private ZonedDateTime date = ZonedDateTime.now();
 
+    private String duration;
+
+    private String levelUp;
+
+    private String levelDown;
     @Override
     public Long getId() {
         return this.id;
