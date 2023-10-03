@@ -46,7 +46,6 @@ public class User extends UriEntity<String> implements UserDetails {
     private boolean passwordReset;
 
     @NotNull
-    @NotBlank
     @ColumnDefault("false")
     private boolean isReviewer;
 
