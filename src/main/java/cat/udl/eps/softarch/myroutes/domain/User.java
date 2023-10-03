@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -41,6 +43,11 @@ public class User extends UriEntity<String> implements UserDetails {
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private boolean passwordReset;
+
+	@NotNull
+	@NotBlank
+	@ColumnDefault("false")
+	private boolean isReviewer;
 
 	public void encodePassword() {
 		this.password = passwordEncoder.encode(this.password);
@@ -75,4 +82,5 @@ public class User extends UriEntity<String> implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
 }
