@@ -11,5 +11,5 @@ import java.util.List;
 @RepositoryRestResource
 public interface UserRepository extends CrudRepository<User, String>, PagingAndSortingRepository<User, String> {
 
-  List<User> findByIdContaining(@Param("text") String text);
+    List<User> findByIdContaining(@Param("text") String text);
 }
