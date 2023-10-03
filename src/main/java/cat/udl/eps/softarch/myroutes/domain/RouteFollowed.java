@@ -17,12 +17,6 @@ public class RouteFollowed extends UriEntity<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // Used to get foreign key from route
-    private Long routeId;
-
-    // Used to get foreign key from user
-    private Long userId;
-
     private ZonedDateTime date = ZonedDateTime.now();
 
     @NotBlank
