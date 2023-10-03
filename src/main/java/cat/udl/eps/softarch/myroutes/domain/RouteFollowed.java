@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.myroutes.domain;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,6 +18,7 @@ public class RouteFollowed extends UriEntity<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private ZonedDateTime date = ZonedDateTime.now();
 
     @NotBlank
@@ -31,10 +33,6 @@ public class RouteFollowed extends UriEntity<Long> {
     @Override
     public Long getId() {
         return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }
