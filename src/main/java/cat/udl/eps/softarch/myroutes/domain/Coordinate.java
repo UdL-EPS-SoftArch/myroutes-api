@@ -24,8 +24,8 @@ public class Coordinate extends UriEntity<Long> {
     @NotNull
     private String coordinate;
 
-    //@ManyToOne
-    //@JsonIdentityReference(alwaysAsId = true)
-    //private RouteVersion offerer;
+    @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
+    private RouteVersion routeVersion;
 
 }
