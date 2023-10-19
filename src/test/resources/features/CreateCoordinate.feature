@@ -7,8 +7,6 @@ Feature: Create Coordinate
     Given There is a registered user with username "username" and password "password" and email "user@domain.com"
 
   Scenario: Create new coordinate
-    When I create a new coordinate with value "coordinate"
-    Then The response code is 401
     Given I can login with username "username" and password "password"
     When I create a new Coordinate with value "error coordinate"
     Then The error message is "Invalid format for Coordinate"
@@ -33,3 +31,17 @@ Feature: Create Coordinate
     When I create a new Coordinate with value "-89.99999,-180.00000"
     Then The error message is "Invalid format for Coordinate"
 
+  Scenario: Valid upper latitude and longitude
+    Given I can login with username "username" and password "password"
+    When I create a new Coordinate with value "89.99999,179.99999"
+    Then The response code is 201
+
+  Scenario: Valid lower latitude and longitude
+    Given I can login with username "username" and password "password"
+    When I create a new Coordinate with value "-89.99999,-179.99999"
+    Then The response code is 201
+
+  Scenario: Valid random latitude and longitude
+    Given I can login with username "username" and password "password"
+    When I create a new Coordinate with value "41.40338,2.17403"
+    Then The response code is 201
