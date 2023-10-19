@@ -23,7 +23,7 @@ public class Coordinate extends UriEntity<Long> {
 
     @NotBlank
     @NotNull
-    @Pattern(regexp = "^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?[,]\\s?)+(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")
+    @Pattern(regexp = "(-?([0-8]?[0-9](\\.\\d+)?|89(.[0]+)?)[,])+(-?([1]?[0-7]?[0-9](\\.\\d+)?|179((.[0]+)?)))", message = "Invalid format for Coordinate")
     private String coordinate;
 
     @ManyToOne
