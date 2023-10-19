@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,7 @@ public class Coordinate extends UriEntity<Long> {
 
     @NotBlank
     @NotNull
+    @Pattern(regexp = "^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?[,]\\s?)+(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")
     private String coordinate;
 
     @ManyToOne
