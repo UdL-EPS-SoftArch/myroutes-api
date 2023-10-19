@@ -3,7 +3,6 @@ package cat.udl.eps.softarch.myroutes.steps;
 import cat.udl.eps.softarch.myroutes.domain.Coordinate;
 import cat.udl.eps.softarch.myroutes.repository.CoordinateRepository;
 import io.cucumber.java.en.When;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
@@ -20,22 +19,20 @@ public class CoordinateStepDefs {
     @Autowired
     private CoordinateRepository coordinateRepository;
 
-    @When("I create a new coordinate with value {string}")
+    @When("I create a new Coordinate with value {string}")
     public void iCreateANewCoordinateWithValue(String s_coordinate) throws Throwable {
 
         Coordinate coordinate = new Coordinate();
         coordinate.setCoordinate(s_coordinate);
 
         stepDefs.result = stepDefs.mockMvc.perform(
-                        post("/coordinate")
+                        post("/coordinates")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(new JSONObject(
-                                        stepDefs.mapper.writeValueAsString(coordinate)
-                                ).toString())
+                                .content(stepDefs.mapper.writeValueAsString(coordinate))
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());
-
     }
+
 }
