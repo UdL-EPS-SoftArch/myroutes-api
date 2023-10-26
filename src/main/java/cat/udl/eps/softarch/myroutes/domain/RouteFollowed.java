@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.myroutes.domain;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -33,5 +34,13 @@ public class RouteFollowed extends UriEntity<Long> {
     public Long getId() {
         return this.id;
     }
+
+    @NotNull
+    @ManyToOne
+    public User createdBy;
+
+    @NotNull
+    @ManyToOne
+    public Route routeOrigin;
 
 }
