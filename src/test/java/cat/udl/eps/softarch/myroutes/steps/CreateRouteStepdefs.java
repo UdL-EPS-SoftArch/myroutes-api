@@ -2,21 +2,20 @@ package cat.udl.eps.softarch.myroutes.steps;
 
 import cat.udl.eps.softarch.myroutes.domain.Route;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import org.hibernate.grammars.hql.HqlParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-public class RouteStepdefs {
+public class CreateRouteStepdefs {
 
     @Autowired
     private StepDefs stepDefs;
@@ -34,9 +33,16 @@ public class RouteStepdefs {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
                                 .andDo(print());
-                                //
+            }
 
-        String newResourceUri = stepDefs.result.andReturn().getResponse().getHeader("Route");
+    @And("I don't have any route")
+    public void iDonTHaveAnyRoute() {
+        routeRepository.deleteAll();
+    }
+
+    @Given("There is a route with a title {string}, description {string}, type {string} and a creationDate {string}")
+    public void thereIsARouteWithATitleDescriptionTypeAndACreationDate(String title, String description, String type, String creationDate) throws Exception {
+        iCreateARouteWithATitleDescriptionTypeAndACreationDate(title,description,type,creationDate);
     }
 
     private Route buildRoute(String title, String description, String type, String sCreationDate){
@@ -59,11 +65,4 @@ public class RouteStepdefs {
         }
         return route;
     }
-
-    @And("I don't have any route")
-    public void iDonTHaveAnyRoute() {
-        routeRepository.deleteAll();
-    }
-
-
 }
