@@ -1,9 +1,7 @@
 package cat.udl.eps.softarch.myroutes.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,15 +19,26 @@ public class Route extends UriEntity<Long>{
     @NotEmpty
     private String title;
 
-    private String descrition;
+    private String description;
 
-    private String type;
+    @Enumerated(EnumType.ORDINAL)
+    private Type type;
 
-    @NotEmpty
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @NotNull
     private ZonedDateTime creationDate;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @NotNull
     @ManyToOne
     private User createdBy;
+
+    ///TODO: More types?
+    public enum Type {
+        Walking,
+        Running,
+        Ridding,
+        Swimming
+    }
 
 }
