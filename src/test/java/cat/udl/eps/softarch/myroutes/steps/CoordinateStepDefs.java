@@ -47,8 +47,6 @@ public class CoordinateStepDefs {
         this.currentCoordinate = coordinate;
     }
 
-    @When("I get that Coordinate")
-    public void iGetThatCoordinate() throws Throwable{
     @When("I retrieve that Coordinate")
     public void iRetrieveThatCoordinate() throws Throwable {
         stepDefs.result = stepDefs.mockMvc.perform(
@@ -63,5 +61,20 @@ public class CoordinateStepDefs {
                 get("/coordinates/{id}", id)
                         .with(AuthenticationStepDefs.authenticate())
                         .accept(MediaType.APPLICATION_JSON)).andDo(print());
+    }
+
+    @When("I update that Coordinate with new value {string}")
+    public void iUpdateThatCoordinateWithNewValue(String coordinate) throws Exception {
+        JSONObject modifyCoordinate = new JSONObject();
+        modifyCoordinate.put("value", coordinate);
+
+        stepDefs.result = stepDefs.mockMvc.perform(
+                        patch("/coordinates/{id}", this.currentCoordinate.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .with(AuthenticationStepDefs.authenticate())
+                                .content(modifyCoordinate.toString())
+                                .characterEncoding(StandardCharsets.UTF_8)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
     }
 }
