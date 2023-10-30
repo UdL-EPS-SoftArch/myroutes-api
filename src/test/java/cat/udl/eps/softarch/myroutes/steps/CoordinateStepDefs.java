@@ -49,17 +49,19 @@ public class CoordinateStepDefs {
 
     @When("I get that Coordinate")
     public void iGetThatCoordinate() throws Throwable{
+    @When("I retrieve that Coordinate")
+    public void iRetrieveThatCoordinate() throws Throwable {
         stepDefs.result = stepDefs.mockMvc.perform(
                 get("/coordinates/{id}", this.currentCoordinate.getId())
                         .with(AuthenticationStepDefs.authenticate())
-                        .accept(MediaType.APPLICATION_JSON));
+                        .accept(MediaType.APPLICATION_JSON)).andDo(print());
     }
 
     @When("I try to retrieve a Coordinate with id {long}")
-    public void iTryToRetrieveACoordinateWithId(Long id) throws Throwable{
+    public void iTryToRetrieveACoordinateWithId(Long id) throws Throwable {
         stepDefs.result = stepDefs.mockMvc.perform(
                 get("/coordinates/{id}", id)
                         .with(AuthenticationStepDefs.authenticate())
-                        .accept(MediaType.APPLICATION_JSON));
+                        .accept(MediaType.APPLICATION_JSON)).andDo(print());
     }
 }
