@@ -4,14 +4,14 @@ import cat.udl.eps.softarch.myroutes.domain.Coordinate;
 import cat.udl.eps.softarch.myroutes.repository.CoordinateRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
 public class CoordinateStepDefs {
@@ -40,7 +40,7 @@ public class CoordinateStepDefs {
     }
 
     @And("I create a new valid Coordinate")
-    public void iCreateANewValidCoordinate() throws Throwable{
+    public void iCreateANewValidCoordinate() throws Throwable {
         Coordinate coordinate = new Coordinate();
         coordinate.setCoordinate("41.40338,2.17403");
         coordinateRepository.save(coordinate);
@@ -76,5 +76,23 @@ public class CoordinateStepDefs {
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print());
+    }
+
+    @When("I delete that Coordinate")
+    public void iDeleteThatCoordinate() throws Exception {
+        stepDefs.result = stepDefs.mockMvc.perform(
+                delete("/coordinates/{id}", this.currentCoordinate.getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate())
+        ).andDo(print());
+    }
+
+    @When("I delete unknown Coordinate")
+    public void iDeleteUnknownCoordinate() throws Exception {
+        stepDefs.result = stepDefs.mockMvc.perform(
+                delete("/coordinates/{id}", (String) null)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate())
+        ).andDo(print());
     }
 }
