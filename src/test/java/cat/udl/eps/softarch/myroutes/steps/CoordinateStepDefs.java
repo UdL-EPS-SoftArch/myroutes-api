@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -65,8 +66,9 @@ public class CoordinateStepDefs {
 
     @When("I update that Coordinate with new value {string}")
     public void iUpdateThatCoordinateWithNewValue(String coordinate) throws Exception {
+        this.currentCoordinate.setCoordinate(coordinate);
         JSONObject modifyCoordinate = new JSONObject();
-        modifyCoordinate.put("value", coordinate);
+        modifyCoordinate.put("coordinate", coordinate);
 
         stepDefs.result = stepDefs.mockMvc.perform(
                         patch("/coordinates/{id}", this.currentCoordinate.getId())
@@ -97,9 +99,19 @@ public class CoordinateStepDefs {
     }
 
     @And("The new Coordinate is updated with values {string}")
-    public void theNewCoordinateIsUpdatedWithValues(String coordinate) {
-        assert this.currentCoordinate.getId() != null;
-        Coordinate updatedCoordinate = coordinateRepository.findById(this.currentCoordinate.getId()).get();
-        assert updatedCoordinate.getCoordinate().equals(coordinate);
+    public void theNewCoordinateIsUpdatedWithValues(String coordinate) throws Exception {
+        Optional<Coordinate> updatedCoordinate = null;
+        if (this.currentCoordinate.getId() != null) {
+            updatedCoordinate = coordinateRepository.findById(this.currentCoordinate.getId());
+        } else
+            throw new Exception("Coordinate not found");
+
+        if (updatedCoordinate.isPresent()) {
+            if (!updatedCoordinate.get().getCoordinate().equals(coordinate)) {
+                throw new Exception("Coordinate not updated");
+            }
+        } else
+            throw new Exception("Coordinate not found");
     }
+
 }
