@@ -20,6 +20,7 @@ Feature: Route
 
     ##make a post instead of delete?
   Scenario: Delete a Route as admin
+    Given There is a registered admin with name "admin" and password "password" and email "admin@sample.app"
     Given I login as "admin" with password "password"
     When I try to delete Route with title "testRoute"
     Then The response code is 200
