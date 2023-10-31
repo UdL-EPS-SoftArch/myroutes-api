@@ -11,20 +11,20 @@ import org.springframework.http.MediaType;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-public class CreateRouteStepdefs {
+public class CreateRouteStepdefs{
 
     @Autowired
     private StepDefs stepDefs;
+
     @Autowired
     private RouteRepository routeRepository;
 
     @When("I create a route with a title {string}, description {string}, type {string} and a creationDate {string}")
     public void iCreateARouteWithATitleDescriptionTypeAndACreationDate(String title, String description, String type, String creationDate) throws Exception {
-        Route route = buildRoute(title,description,type,creationDate);
+        Route route = RouteUtil.buildRoute(title,description,type,creationDate);
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routes")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -45,24 +45,6 @@ public class CreateRouteStepdefs {
         iCreateARouteWithATitleDescriptionTypeAndACreationDate(title,description,type,creationDate);
     }
 
-    private Route buildRoute(String title, String description, String type, String sCreationDate){
-        Route route = new Route();
-        if(!sCreationDate.isEmpty()){
-            ZonedDateTime creationDate = ZonedDateTime.parse(sCreationDate);
-            route.setCreationDate(creationDate);
-        }
-        if(!title.isEmpty())
-            route.setTitle(title);
-        if(!description.isEmpty())
-            route.setDescription(description);
-        if(!type.isEmpty()){
-            try{
-                Route.Type value = Route.Type.valueOf(type);
-                route.setType(value);
-            }catch (Exception e){
-                System.out.println("Error on Type parse");
-            }
-        }
-        return route;
-    }
+
+
 }
