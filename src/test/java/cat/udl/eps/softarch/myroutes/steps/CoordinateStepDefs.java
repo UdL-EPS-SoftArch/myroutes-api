@@ -95,4 +95,11 @@ public class CoordinateStepDefs {
                         .with(AuthenticationStepDefs.authenticate())
         ).andDo(print());
     }
+
+    @And("The new Coordinate is updated with values {string}")
+    public void theNewCoordinateIsUpdatedWithValues(String coordinate) {
+        assert this.currentCoordinate.getId() != null;
+        Coordinate updatedCoordinate = coordinateRepository.findById(this.currentCoordinate.getId()).get();
+        assert updatedCoordinate.getCoordinate().equals(coordinate);
+    }
 }

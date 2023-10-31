@@ -11,3 +11,4 @@ Feature: Update Coordinate
     Given I login as "username" with password "password"
     When I update that Coordinate with new value "-89.99999,-179.99999"
     Then The response code is 200
+    And The new Coordinate is updated with values "-89.99999,-179.99999"
