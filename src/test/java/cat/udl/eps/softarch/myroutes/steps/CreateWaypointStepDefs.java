@@ -3,22 +3,15 @@ package cat.udl.eps.softarch.myroutes.steps;
 import cat.udl.eps.softarch.myroutes.domain.Coordinate;
 import cat.udl.eps.softarch.myroutes.domain.Waypoint;
 import cat.udl.eps.softarch.myroutes.repository.WaypointRepository;
-import cat.udl.eps.softarch.myroutes.steps.AuthenticationStepDefs;
-import cat.udl.eps.softarch.myroutes.steps.StepDefs;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 
 import java.nio.charset.StandardCharsets;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 public class CreateWaypointStepDefs {
