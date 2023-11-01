@@ -23,7 +23,7 @@ public class RetrieveWaypointStepDefs {
                         .accept(MediaType.APPLICATION_JSON));
     }
 
-    @When("I try to retrieve a Waypoint with title \"([^\"]*)\"$")
+    @When("^I try to retrieve a Waypoint with title \"([^\"]*)\"$")
     public void iTryToRetrieveAWaypointWithId(String title) throws Throwable {
         Optional<Waypoint> optionalWaypoint = waypointRepository.findByTitle(title);
         stepDefs.result = stepDefs.mockMvc.perform(
