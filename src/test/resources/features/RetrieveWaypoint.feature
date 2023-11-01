@@ -1,4 +1,4 @@
-Feature: Get Seed
+Feature: Get Waypoint
   In order to get Waypoint
   I want to get a Waypoint
 
