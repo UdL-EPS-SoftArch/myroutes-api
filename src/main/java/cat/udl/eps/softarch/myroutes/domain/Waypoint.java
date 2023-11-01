@@ -1,6 +1,8 @@
 package cat.udl.eps.softarch.myroutes.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import jakarta.persistence.Entity;
@@ -31,4 +33,8 @@ public class Waypoint extends UriEntity<Long> {
     @NotNull
     @NotBlank
     private String type;
+
+    @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
+    private Coordinate coordinate; 
 }
