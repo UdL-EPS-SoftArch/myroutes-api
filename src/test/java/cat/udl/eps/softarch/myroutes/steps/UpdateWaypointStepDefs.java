@@ -3,7 +3,6 @@ package cat.udl.eps.softarch.myroutes.steps;
 import cat.udl.eps.softarch.myroutes.domain.Waypoint;
 import cat.udl.eps.softarch.myroutes.repository.WaypointRepository;
 import io.cucumber.java.en.When;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class UpdateWaypointStepDefs {
     private WaypointRepository waypointRepository;
 
 
-    @When("I update Waypoint with title \"([^\"]*)\" by changing it to \"([^\"]*)\" and description to \"([^\"]*)\"")
+    @When("I update Waypoint with title \"([^\"]*)\" by changing it to \"([^\"]*)\" and description to \"([^\"]*)\"$")
     public void iUpdateWaypointWithTitleByChangingItToAndDescriptionTo
             (String title, String newTitle, String description)
             throws Throwable {
@@ -32,7 +31,7 @@ public class UpdateWaypointStepDefs {
         JSONObject modifyWaypoint = new JSONObject();
         modifyWaypoint.put("title", newTitle);
         if (description != null)
-            modifyWaypoint.put("description", new JSONArray(title.split(", ", -1)));
+            modifyWaypoint.put("description", description);
 
         stepDefs.result = stepDefs.mockMvc.perform(
                 patch("/waypoints/{id}", optionalWaypoint.isPresent() ? optionalWaypoint.get().getId() : "999")
@@ -46,7 +45,7 @@ public class UpdateWaypointStepDefs {
             JSONObject updateWaypointJSON = new JSONObject(stepDefs.result.andReturn().getResponse().getContentAsString());
             Assert.assertEquals(newTitle, updateWaypointJSON.get("title"));
             if (description != null)
-                Assert.assertEquals(new JSONArray(description.split(", ", -1)), updateWaypointJSON.get("description"));
+                Assert.assertEquals(description, updateWaypointJSON.get("description"));
         }
     }
 

@@ -57,7 +57,7 @@ public class CreateWaypointStepDefs {
                 .andDo(print());
     }
 
-    @And("There is (\\\\d+) Waypoint created")
+    @And("There is (\\\\d+) Waypoint created$")
     public void thereIsWaypointCreated(int waypointsCreatedNum) {
         Assert.assertEquals(waypointsCreatedNum, waypointRepository.count());
     }
@@ -71,7 +71,7 @@ public class CreateWaypointStepDefs {
     }
 
     @And("There is already a Waypoint with title {string} description {string} and type {string}")
-    public void thereIsAlreadyAWaypointWithTitleDescriptionAndType(String title, String description, String type) throws Throwable {
+    public void thereIsAlreadyAWaypointWithTitleDescriptionAndType(String title, String description, String type) {
         Waypoint waypoint = new Waypoint();
         waypoint.setTitle(title);
         waypoint.setDescription(description);

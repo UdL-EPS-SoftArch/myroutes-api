@@ -1,5 +1,4 @@
 package cat.udl.eps.softarch.myroutes.steps;
-import cat.udl.eps.softarch.myroutes.domain.Coordinate;
 import cat.udl.eps.softarch.myroutes.domain.Waypoint;
 import cat.udl.eps.softarch.myroutes.repository.WaypointRepository;
 import io.cucumber.java.en.When;
@@ -16,8 +15,8 @@ public class RetrieveWaypointStepDefs {
     @Autowired
     private WaypointRepository waypointRepository;
 
-    @When("^I try to retrieve (\\d+) Waypoint")
-    public void retrieveSeed(int id) throws Exception {
+    @When("^I try to retrieve (\\d+) Waypoint$")
+    public void retrieveWaypoint(int id) throws Exception {
         stepDefs.result = stepDefs.mockMvc.perform(
                 get("/waypoint/{id}", id)
                         .with(AuthenticationStepDefs.authenticate())
@@ -25,10 +24,10 @@ public class RetrieveWaypointStepDefs {
     }
 
     @When("I try to retrieve a Waypoint with title \"([^\"]*)\"$")
-    public void iTryToRetrieveASeedWithId(String title) throws Throwable {
+    public void iTryToRetrieveAWaypointWithId(String title) throws Throwable {
         Optional<Waypoint> optionalWaypoint = waypointRepository.findByTitle(title);
         stepDefs.result = stepDefs.mockMvc.perform(
-                get("/seeds/{id}", optionalWaypoint.isPresent() ? optionalWaypoint.get().getId() : "999")
+                get("/waypoints/{id}", optionalWaypoint.isPresent() ? optionalWaypoint.get().getId() : "999")
                         .with(AuthenticationStepDefs.authenticate())
                         .accept(MediaType.APPLICATION_JSON));
     }
