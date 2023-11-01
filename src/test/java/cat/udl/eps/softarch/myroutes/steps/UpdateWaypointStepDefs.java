@@ -22,7 +22,7 @@ public class UpdateWaypointStepDefs {
     private WaypointRepository waypointRepository;
 
 
-    @When("^I update Waypoint with title \"([^\"]*)\" by changing it to \"([^\"]*)\" and description to \"([^\"]*)\"$")
+    @When("I update Waypoint with title {string} by changing it to {string} and description to {string}")
     public void iUpdateWaypointWithTitleByChangingItToAndDescriptionTo
             (String title, String newTitle, String description)
             throws Throwable {
@@ -49,7 +49,7 @@ public class UpdateWaypointStepDefs {
         }
     }
 
-    @When("^I update Waypoint with title \"([^\"]*)\" by changing it to \"([^\"]*)\"$")
+    @When("I update Waypoint with title {string} by changing it to {string}")
     public void iUpdateWaypointWithTitleByChangingItTo(String title, String newTitle) throws Throwable {
         iUpdateWaypointWithTitleByChangingItToAndDescriptionTo(title, newTitle, null);
     }

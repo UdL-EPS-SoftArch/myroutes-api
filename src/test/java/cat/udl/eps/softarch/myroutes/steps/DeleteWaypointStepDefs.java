@@ -17,7 +17,7 @@ public class DeleteWaypointStepDefs {
     @Autowired
     private WaypointRepository waypointRepository;
 
-    @When("^I delete the Waypoint with title \"([^\"]*)\"$")
+    @When("I delete the Waypoint with title {string}")
     public void iDeleteWaypointWithId(String title) throws Throwable  {
         Optional<Waypoint> optionalWaypoint = waypointRepository.findByTitle(title);
         stepDefs.result = stepDefs.mockMvc.perform(

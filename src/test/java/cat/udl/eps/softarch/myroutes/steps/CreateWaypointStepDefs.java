@@ -22,7 +22,7 @@ public class CreateWaypointStepDefs {
     private WaypointRepository waypointRepository;
     public static String newResourceUri;
 
-    @When("^I create a new Waypoint with title \"([^\"]*)\" description \"([^\"]*)\" and type \"([^\"]*)\"$")
+    @When("I create a new Waypoint with title {string} description {string} and type {string}")
     public void iCreateANewWaypointWithTitleDescriptionAndType(String title, String description, String type) throws Throwable {
         Waypoint newWaypoint = new Waypoint();
         newWaypoint.setTitle(title);
@@ -39,7 +39,7 @@ public class CreateWaypointStepDefs {
                 .andDo(print());
     }
 
-    @When("^I create a new Waypoint with title \"([^\"]*)\" description \"([^\"]*)\" type \"([^\"]*)\" and coordinate {string}$")
+    @When("I create a new Waypoint with title {string} description {string} type {string} and coordinate {string}")
     public void iCreateANewWaypointWithTitleDescriptionTypeAndCoordinate(String title, String description, String type, Coordinate coordinate) throws Throwable {
         Waypoint newWaypoint = new Waypoint();
         newWaypoint.setTitle(title);
@@ -57,7 +57,7 @@ public class CreateWaypointStepDefs {
                 .andDo(print());
     }
 
-    @And("^There is (\\\\d+) Waypoint created$")
+    @And("There is (\\d+) Waypoint created$")
     public void thereIsWaypointCreated(int waypointsCreatedNum) {
         Assert.assertEquals(waypointsCreatedNum, waypointRepository.count());
     }
@@ -70,7 +70,7 @@ public class CreateWaypointStepDefs {
                         .accept(MediaType.APPLICATION_JSON));
     }
 
-    @And("^There is already a Waypoint with title \"([^\"]*)\" description \"([^\"]*)\" and type \"([^\"]*)\"$")
+    @And("There is already a Waypoint with title {string} description {string} and type {string}")
     public void thereIsAlreadyAWaypointWithTitleDescriptionAndType(String title, String description, String type) {
         Waypoint waypoint = new Waypoint();
         waypoint.setTitle(title);
