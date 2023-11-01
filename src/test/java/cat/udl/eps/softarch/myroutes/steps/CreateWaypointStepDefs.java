@@ -64,9 +64,18 @@ public class CreateWaypointStepDefs {
 
     @And("I try to retrieve that Waypoint")
     public void iTryToRetrieveThatWaypoint() throws Exception {
-        stepDefs.result = stepDefs.mockMvc.perform (
+        stepDefs.result = stepDefs.mockMvc.perform(
                 get(newResourceUri)
                         .with(AuthenticationStepDefs.authenticate())
                         .accept(MediaType.APPLICATION_JSON));
+    }
+
+    @And("There is already a Waypoint with title {string} description {string} and type {string}")
+    public void thereIsAlreadyAWaypointWithTitleDescriptionAndType(String title, String description, String type) throws Throwable {
+        Waypoint waypoint = new Waypoint();
+        waypoint.setTitle(title);
+        waypoint.setDescription(description);
+        waypoint.setType(type);
+        waypointRepository.save(waypoint);
     }
 }
