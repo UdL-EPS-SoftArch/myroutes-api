@@ -36,5 +36,5 @@ public class Waypoint extends UriEntity<Long> {
 
     @ManyToOne
     @JsonIdentityReference(alwaysAsId = true)
-    private Coordinate coordinate; 
+    private Coordinate coordinate;
 }
