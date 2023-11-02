@@ -109,4 +109,5 @@ public class RegisterStepDefs {
                     .with(AuthenticationStepDefs.authenticate()))
             .andExpect(status().isNotFound());
   }
+
 }
