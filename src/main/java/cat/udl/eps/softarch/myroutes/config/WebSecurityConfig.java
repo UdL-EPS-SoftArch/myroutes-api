@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.myroutes.config;
 import java.util.Arrays;
 import java.util.List;
 
+import cat.udl.eps.softarch.myroutes.domain.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ public class WebSecurityConfig {
     @Value("${allowed-origins}")
     String[] allowedOrigins;
 
+
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((auth) -> auth
@@ -33,7 +35,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/**/*").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/**/*").authenticated()
                 .requestMatchers(HttpMethod.PATCH, "/**/*").authenticated()
-                .requestMatchers(HttpMethod.DELETE,"/routes/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE,"/routes/*").hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.DELETE, "/**/*").authenticated()
                 .anyRequest().permitAll())
             .csrf((csrf) -> csrf.disable())
