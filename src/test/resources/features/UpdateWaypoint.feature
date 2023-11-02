@@ -13,7 +13,7 @@ Feature: Update Waypoint
 
   Scenario: Update a Waypoint with invalid content
     Given I login as "username" with password "password"
-    When I update Waypoint with title "ASample Waypoint" by changing it to ""
+    When I update Waypoint with title "Sample Waypoint" by changing it to ""
     Then The response code is 400
 
   Scenario: Update a Waypoint when I am not logged in

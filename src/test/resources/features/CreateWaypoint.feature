@@ -3,6 +3,9 @@ Feature: Create Waypoint
   As a user
   I want to create a new waypoint and validate the data
 
+  Background:
+    Given There is a registered user with username "username" and password "password" and email "user@sample.app"
+
   Scenario: Create a Waypoint with valid data
     Given I can login with username "username" and password "password"
     When I create a new Waypoint with title "Sample Waypoint" description "A test waypoint" and type "Sample"

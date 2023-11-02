@@ -37,6 +37,7 @@ public class CreateWaypointStepDefs {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());
+        newResourceUri = stepDefs.result.andReturn().getResponse().getHeader("Location");
     }
 
     @When("I create a new Waypoint with title {string} description {string} type {string} and coordinate {string}")
@@ -55,9 +56,10 @@ public class CreateWaypointStepDefs {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());
+        newResourceUri = stepDefs.result.andReturn().getResponse().getHeader("Location");
     }
 
-    @And("There is (\\d+) Waypoint created$")
+    @And("^There is (\\d+) Waypoint created$")
     public void thereIsWaypointCreated(int waypointsCreatedNum) {
         Assert.assertEquals(waypointsCreatedNum, waypointRepository.count());
     }
