@@ -44,11 +44,11 @@ public class RouteUtil {
     }
 
     public static Route getRouteByTitle(RouteRepository routeRepository, String title){
-        List<Route> routes = (List<Route>) routeRepository.findAll();
+        List<Route> routes = (List<Route>) routeRepository.findByTitle(title);
         Optional<Route> route_ = null;
-        if(routes.stream().anyMatch(route -> route.getTitle().equalsIgnoreCase(title)))
-            route_ = routes.stream().filter(route -> route.getTitle().equalsIgnoreCase(title)).findFirst();
-        if(route_ == null)
+        if(!routes.isEmpty())
+            route_ = routes.stream().findFirst();
+        if(!route_.isPresent())
             return  null;
         else
             return route_.get();
