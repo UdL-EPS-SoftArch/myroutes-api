@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.myroutes.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,14 +17,15 @@ import java.time.ZonedDateTime;
 public class RouteFollowed extends UriEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
-    @NotBlank
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @NotNull
     private ZonedDateTime date = ZonedDateTime.now();
 
-    @NotBlank
-    private String duration;
+    @NotNull
+    private Duration duration = Duration.parse("P1DT1H10M10.5S");
 
     @NotBlank
     private String levelUp;
@@ -30,15 +33,12 @@ public class RouteFollowed extends UriEntity<Long> {
     @NotBlank
     private String levelDown;
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @NotNull
     @ManyToOne
     public User createdBy;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @NotNull
     @ManyToOne
     public Route routeOrigin;
