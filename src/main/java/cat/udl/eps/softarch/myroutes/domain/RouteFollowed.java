@@ -22,7 +22,7 @@ public class RouteFollowed extends UriEntity<Long> {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @NotNull
-    private ZonedDateTime date = ZonedDateTime.now();
+    private ZonedDateTime date;
 
     @NotNull
     private Duration duration = Duration.parse("P1DT1H10M10.5S");
