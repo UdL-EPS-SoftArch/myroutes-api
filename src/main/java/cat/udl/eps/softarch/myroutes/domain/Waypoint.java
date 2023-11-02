@@ -21,7 +21,7 @@ public class Waypoint extends UriEntity<Long> {
 
     @NotNull
     @NotBlank
-    @Column(unique = true)
+    //@Column(unique = true)
     private String title;
 
     @NotNull

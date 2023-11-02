@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.myroutes.steps;
 import cat.udl.eps.softarch.myroutes.domain.Waypoint;
 import cat.udl.eps.softarch.myroutes.repository.WaypointRepository;
 import io.cucumber.java.en.When;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
@@ -17,6 +18,7 @@ public class DeleteWaypointStepDefs {
     @Autowired
     private WaypointRepository waypointRepository;
 
+    @Transactional
     @When("I delete the Waypoint with title {string}")
     public void iDeleteWaypointWithId(String title) throws Throwable  {
         Optional<Waypoint> optionalWaypoint = waypointRepository.findByTitle(title);

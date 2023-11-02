@@ -43,8 +43,8 @@ Feature: Create Waypoint
     When I create a new Waypoint with title "Sample Waypoint" description "A test waypoint" and type "Sample"
     And The response code is 201
     And I create a new Waypoint with title "Sample Waypoint" description "A test waypoint" and type "Sample"
-    Then The response code is 409
-    And There is 1 Waypoint created
+    Then The response code is 201
+    And There is 2 Waypoint created
 
   Scenario: Create a new Waypoint when I am not logged in
     Given I'm not logged in

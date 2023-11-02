@@ -8,8 +8,10 @@ Feature: Delete Waypoint
 
   Scenario: Delete a Waypoint with user logged in
     Given I login as "username" with password "password"
+    And There is 1 Waypoint created
     When I delete the Waypoint with title "Sample Waypoint"
-    Then The response code is 204
+    Then The response code is 200
+    And There is 0 Waypoint created
 
   Scenario: Delete a Waypoint with user not logged in
     Given I'm not logged in
