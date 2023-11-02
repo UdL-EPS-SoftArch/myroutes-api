@@ -48,7 +48,7 @@ public class RouteUtil {
         Optional<Route> route_ = null;
         if(!routes.isEmpty())
             route_ = routes.stream().findFirst();
-        if(!route_.isPresent())
+        if(route_ == null)
             return  null;
         else
             return route_.get();
