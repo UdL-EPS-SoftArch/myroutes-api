@@ -11,4 +11,5 @@ import java.util.List;
 @RepositoryRestResource
 public interface RouteRepository extends CrudRepository<Route, Long>, PagingAndSortingRepository<Route, Long> {
     List<Route> findByCreatedBy(@Param("creator") User creator);
+    List<Route> findByTitle(@Param("title") String title);
 }
