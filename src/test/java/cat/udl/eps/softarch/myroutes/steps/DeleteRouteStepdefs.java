@@ -2,19 +2,15 @@ package cat.udl.eps.softarch.myroutes.steps;
 
 import cat.udl.eps.softarch.myroutes.domain.Admin;
 import cat.udl.eps.softarch.myroutes.domain.Route;
-import cat.udl.eps.softarch.myroutes.domain.User;
 import cat.udl.eps.softarch.myroutes.repository.AdminRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -35,10 +31,10 @@ public class DeleteRouteStepdefs{
     public void iTryToDeleteRouteWithTitle(String title) throws Exception {
         Route route = RouteUtil.getRouteByTitle(routeRepository,title);
         stepDefs.result = stepDefs.mockMvc.perform(
-                delete("/routes/"+(route == null?"":route.getId()))
+                delete((route == null?"":route.getUri()))
                         .accept(MediaType.APPLICATION_JSON)
-                        .with(AuthenticationStepDefs.authenticate())
-        );
+                        .with(AuthenticationStepDefs.authenticate()))
+                        .andDo(print());
     }
 
     @Given("There is a registered admin with name {string} and password {string} and email {string}")
