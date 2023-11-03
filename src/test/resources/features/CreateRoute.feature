@@ -1,4 +1,4 @@
-Feature: Route
+Feature: Create Route
   In order to use the app
   As a user
   I must be able to create Routes

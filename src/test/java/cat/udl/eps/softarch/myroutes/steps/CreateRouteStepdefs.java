@@ -1,7 +1,9 @@
 package cat.udl.eps.softarch.myroutes.steps;
 
 import cat.udl.eps.softarch.myroutes.domain.Route;
+import cat.udl.eps.softarch.myroutes.domain.User;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
+import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -21,6 +23,8 @@ public class CreateRouteStepdefs{
 
     @Autowired
     private RouteRepository routeRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @When("I create a route with a title {string}, description {string}, type {string} and a creationDate {string}")
     public void iCreateARouteWithATitleDescriptionTypeAndACreationDate(String title, String description, String type, String creationDate) throws Exception {
@@ -40,11 +44,11 @@ public class CreateRouteStepdefs{
         routeRepository.deleteAll();
     }
 
-    @Given("There is a route with a title {string}, description {string}, type {string} and a creationDate {string}")
-    public void thereIsARouteWithATitleDescriptionTypeAndACreationDate(String title, String description, String type, String creationDate) throws Exception {
-        iCreateARouteWithATitleDescriptionTypeAndACreationDate(title,description,type,creationDate);
+
+    @Given("There is a route with a title {string}, description {string}, type {string} and a creationDate {string} by user username {string}")
+    public void thereIsARouteWithATitleDescriptionTypeAndACreationDateByUserUsernameAndPassword(String title, String description, String type, String creationDate, String username) {
+        Route route = RouteUtil.buildRoute(title,description,type,creationDate);
+        route.setCreatedBy(userRepository.findById(username).get());
+        routeRepository.save(route);
     }
-
-
-
 }
