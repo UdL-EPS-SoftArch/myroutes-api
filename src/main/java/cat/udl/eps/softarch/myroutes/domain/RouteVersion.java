@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.myroutes.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,5 +21,9 @@ public class RouteVersion extends UriEntity<Long>{
     @NotBlank
     @NotNull
     private ZonedDateTime creationDate;
+
+    @ManyToOne
+    @NotNull
+    private User createdBy;
 
 }
