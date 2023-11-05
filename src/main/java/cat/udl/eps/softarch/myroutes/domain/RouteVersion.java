@@ -26,4 +26,8 @@ public class RouteVersion extends UriEntity<Long>{
     @NotNull
     private User createdBy;
 
+    @ManyToOne
+    @NotNull
+    private Route versionOf;
+
 }
