@@ -5,6 +5,7 @@ Feature: Create Route
 
   Background:
     Given There is a registered user with username "user" and password "password" and email "user@sample.app"
+    Given There is a registered admin with name "admin" and password "password" and email "admin@sample.app"
     Given I login as "user" with password "password"
 
   Scenario: Create a route without being logged in
@@ -13,11 +14,17 @@ Feature: Create Route
     Then The response code is 401
     And The error message is "Unauthorized"
 
-  Scenario: Create a route while logged in
+  Scenario: Create a route while logged in as user
     Given I login as "user" with password "password"
     And I don't have any route
     When I create a route with a title "testRoute", description "route description", type "Running" and a creationDate "2023-10-25T17:27:00Z"
     Then The response code is 201
+
+  Scenario: Create a route while logged in as admin
+    Given I login as "admin" with password "password"
+    And I don't have any route
+    When I create a route with a title "testRoute", description "route description", type "Running" and a creationDate "2023-10-25T17:27:00Z"
+    Then The response code is 401
 
   Scenario: Create an empty route while logged in
     Given I login as "user" with password "password"
