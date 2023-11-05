@@ -7,19 +7,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.ZonedDateTime;
 
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class RouteVersion extends UriEntity<Long>{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private Long id;
 
     @NotBlank
-    @NotNull
+    @GeneratedValue()
     private ZonedDateTime creationDate;
 
     @ManyToOne
