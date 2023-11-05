@@ -31,7 +31,7 @@ public class UpdateRouteVersionStepDef {
     @When("I update a creationDate RouteVersion whit a Route title {string}")
     public void iUpdateARouteVersionWhitARouteTitle(String routeTitle) throws Exception {
         Route route = routeRepository.findByTitle(routeTitle).get(0);
-        RouteVersion routeVersion = routeVersionRepository.findByRoute(route.getId()).get(0);
+        RouteVersion routeVersion = routeVersionRepository.findByversionOf(route).get(0);
 
         stepDefs.result = stepDefs.mockMvc.perform(patch(routeVersion.getUri())//"/routes/"+route.getId())
                         .contentType(MediaType.APPLICATION_JSON)

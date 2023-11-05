@@ -8,6 +8,7 @@ import cat.udl.eps.softarch.myroutes.repository.CoordinateRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteVersionRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,22 +37,9 @@ public class RouteVersionStepDefs {
     @When("I create a new correct RouteVersion")
     public void iCreateANewCorrectRouteVersion() throws Throwable {
 
-        /*
-        User userAuthenticated = userRepository.findById(AuthenticationStepDefs.currentUsername).get();
-        Route route = new Route();
-        route.setTitle("Route1");
-        route.setDescription("Difficult");
-        route.setType(Route.Type.Walking);
-        route.setCreatedBy(userAuthenticated);
-        route.setCreationDate(ZonedDateTime.parse("2023-10-25T17:27:00Z"));
-        routeRepository.save(route);
-
-         */
-
         Route route = routeRepository.findByTitle("testRoute").get(0);
         RouteVersion routeVersion = new RouteVersion();
         routeVersion.setVersionOf(route);
-        //routeVersion.setCreatedBy(userAuthenticated);
 
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routeVersions")
@@ -68,10 +56,12 @@ public class RouteVersionStepDefs {
     public void iCreateANewCorrectRouteVersionWhitARouteTitle(String routeTitle) {
         Route route = routeRepository.findByTitle(routeTitle).get(0);
         if (route != null) {
-            User userAuthenticated = userRepository.findById(AuthenticationStepDefs.currentUsername).get();
             RouteVersion routeVersion = new RouteVersion();
+            Optional<User> user = userRepository.findById("username");
+            if(user != null)
+                routeVersion.setCreatedBy(user.get());
             routeVersion.setVersionOf(route);
-            routeVersion.setCreatedBy(userAuthenticated);
+            routeVersion.setCreationDate(ZonedDateTime.now());
             routeVersionRepository.save(routeVersion);
         }
     }
