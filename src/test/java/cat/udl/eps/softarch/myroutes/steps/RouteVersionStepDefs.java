@@ -24,6 +24,9 @@ public class RouteVersionStepDefs {
     private StepDefs stepDefs;
 
     @Autowired
+    private CreateRouteStepdefs createRouteStepdefs;
+
+    @Autowired
     private RouteVersionRepository routeVersionRepository;
 
     @Autowired
@@ -34,17 +37,16 @@ public class RouteVersionStepDefs {
 
     @When("I create a new correct RouteVersion")
     public void iCreateANewCorrectRouteVersion() throws Throwable {
-        User userAuthenticated = userRepository.findById(AuthenticationStepDefs.currentUsername).get();
-        Route route = new Route();
-        route.setTitle("Route1");
-        route.setDescription("Difficult");
-        route.setType(Route.Type.Walking);
-        route.setCreatedBy(userAuthenticated);
-        route.setCreationDate(ZonedDateTime.parse("2023-10-25T17:27:00Z"));
+        Route route = RouteUtil.buildRoute("Route1","Difficult",Route.Type.Walking.toString(), ZonedDateTime.now().toString());
+        route.setCreatedBy(userRepository.findById("username").get());
         routeRepository.save(route);
+
         RouteVersion routeVersion = new RouteVersion();
+        assert route.getId() != null;
+        route = routeRepository.findById(route.getId()).get();
         routeVersion.setVersionOf(route);
-        routeVersion.setCreatedBy(userAuthenticated);
+        // routeVersion.setCreatedBy(userRepository.findById("username").get());
+        // routeVersion.setCreationDate(ZonedDateTime.now());
 
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routeVersions")
