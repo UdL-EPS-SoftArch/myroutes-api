@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 @RepositoryEventHandler
 public class RouteVersionEventHandler {
 
-    final Logger logger = LoggerFactory.getLogger(Route.class);
+    final Logger logger = LoggerFactory.getLogger(RouteVersion.class);
 
     @HandleBeforeCreate
     public void handleRouteVersionPreCreate(RouteVersion routeVersion) {

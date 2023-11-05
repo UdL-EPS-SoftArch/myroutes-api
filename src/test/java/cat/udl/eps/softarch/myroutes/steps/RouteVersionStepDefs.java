@@ -8,6 +8,7 @@ import cat.udl.eps.softarch.myroutes.repository.CoordinateRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteVersionRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,6 +35,8 @@ public class RouteVersionStepDefs {
 
     @When("I create a new correct RouteVersion")
     public void iCreateANewCorrectRouteVersion() throws Throwable {
+
+        /*
         User userAuthenticated = userRepository.findById(AuthenticationStepDefs.currentUsername).get();
         Route route = new Route();
         route.setTitle("Route1");
@@ -42,9 +45,13 @@ public class RouteVersionStepDefs {
         route.setCreatedBy(userAuthenticated);
         route.setCreationDate(ZonedDateTime.parse("2023-10-25T17:27:00Z"));
         routeRepository.save(route);
+
+         */
+
+        Route route = routeRepository.findByTitle("testRoute").get(0);
         RouteVersion routeVersion = new RouteVersion();
         routeVersion.setVersionOf(route);
-        routeVersion.setCreatedBy(userAuthenticated);
+        //routeVersion.setCreatedBy(userAuthenticated);
 
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routeVersions")
@@ -53,6 +60,19 @@ public class RouteVersionStepDefs {
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
-                .andDo(print());
+                                .andDo(print());
+    }
+
+
+    @Given("I create a new correct RouteVersion whit a Route title {string}")
+    public void iCreateANewCorrectRouteVersionWhitARouteTitle(String routeTitle) {
+        Route route = routeRepository.findByTitle(routeTitle).get(0);
+        if (route != null) {
+            User userAuthenticated = userRepository.findById(AuthenticationStepDefs.currentUsername).get();
+            RouteVersion routeVersion = new RouteVersion();
+            routeVersion.setVersionOf(route);
+            routeVersion.setCreatedBy(userAuthenticated);
+            routeVersionRepository.save(routeVersion);
+        }
     }
 }

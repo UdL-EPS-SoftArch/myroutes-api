@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.myroutes.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,16 +21,17 @@ public class RouteVersion extends UriEntity<Long>{
     @GeneratedValue()
     private Long id;
 
-    @NotBlank
-    @GeneratedValue()
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @NotNull
     private ZonedDateTime creationDate;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ManyToOne
     @NotNull
     private User createdBy;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ManyToOne
-    @NotNull
     private Route versionOf;
 
 }
