@@ -9,5 +9,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 @RepositoryRestResource
 public interface RouteVersionRepository extends CrudRepository<RouteVersion, Long>, PagingAndSortingRepository<RouteVersion, Long> {
-    List<RouteVersion> findByRoute(Long id);
+    List<RouteVersion> findByversionOf(Route route);
 }
