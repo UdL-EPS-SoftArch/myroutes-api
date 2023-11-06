@@ -1,11 +1,10 @@
 package cat.udl.eps.softarch.myroutes.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
@@ -22,6 +21,7 @@ public class Waypoint extends UriEntity<Long> {
 
     @NotNull
     @NotBlank
+    //@Column(unique = true)
     private String title;
 
     @NotNull
@@ -31,4 +31,8 @@ public class Waypoint extends UriEntity<Long> {
     @NotNull
     @NotBlank
     private String type;
+
+    @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
+    private Coordinate coordinate;
 }
