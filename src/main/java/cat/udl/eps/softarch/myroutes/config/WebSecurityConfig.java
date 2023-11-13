@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,14 +35,15 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/users/*").denyAll()
                 .requestMatchers(HttpMethod.POST,"/routes").hasRole(Role.USER.toString())
                 .requestMatchers(HttpMethod.POST,"/routes/*").denyAll()
-                .requestMatchers(HttpMethod.POST, "/**/*").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/**/*").authenticated()
                 .requestMatchers(HttpMethod.PATCH,"/routes/*").hasRole(Role.USER.toString())
-                .requestMatchers(HttpMethod.PATCH, "/**/*").authenticated()
                 .requestMatchers(HttpMethod.DELETE,"/routes/*").hasRole(Role.ADMIN.toString())
-                .requestMatchers(HttpMethod.DELETE, "/**/*").authenticated()
+                .requestMatchers(HttpMethod.POST,"/waypoints").authenticated()
+                .requestMatchers(HttpMethod.POST, "/*/*").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/*/*").authenticated()
+                .requestMatchers(HttpMethod.PATCH, "/*/*").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/*/*").authenticated()
                 .anyRequest().permitAll())
-            .csrf((csrf) -> csrf.disable())
+            .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
             .httpBasic((httpBasic) -> httpBasic.realmName("demo"));
