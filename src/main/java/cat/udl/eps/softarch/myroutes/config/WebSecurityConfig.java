@@ -30,6 +30,7 @@ public class WebSecurityConfig {
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((auth) -> auth
+                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/identity").authenticated()
                 .requestMatchers(HttpMethod.POST, "/users").anonymous()
                 .requestMatchers(HttpMethod.POST, "/users/*").denyAll()
@@ -38,10 +39,10 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.PATCH,"/routes/*").hasRole(Role.USER.toString())
                 .requestMatchers(HttpMethod.DELETE,"/routes/*").hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.POST,"/waypoints").authenticated()
-                .requestMatchers(HttpMethod.POST, "/*/*").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/*/*").authenticated()
-                .requestMatchers(HttpMethod.PATCH, "/*/*").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/*/*").authenticated()
+                .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
+                .requestMatchers(HttpMethod.PATCH, "/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
                 .anyRequest().permitAll())
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
