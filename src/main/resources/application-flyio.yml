@@ -1,4 +1,4 @@
-allowed-origins: "https://myroutes.fly.dev, https://deploy-preview-*--myroutes.fly.dev"
+allowed-origins: "https://myroutes-softarch.netlify.app,https://deploy-preview-*--myroutes-softarch.netlify.app"
 
 logging:
     level:
