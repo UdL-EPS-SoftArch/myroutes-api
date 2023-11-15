@@ -7,6 +7,7 @@ import cat.udl.eps.softarch.myroutes.repository.RouteFollowedRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,6 +28,9 @@ public class CreateRouteFollowedStepdefs {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RouteFollowedRepository routeFollowedRepository;
+
     @When("I create a routeFollowed with date {string}, duration {string}, levelUp {string} and a levelDown {string}")
     public void iCreateARouteFollowedWithDateDurationLevelUpAndALevelDown(String date, String duration, String levelUp, String levelDown) throws Exception {
         RouteFollowed routeFollowed = RouteFollowedUtil.buildRoute(date,duration, levelUp, levelDown);
@@ -44,5 +48,10 @@ public class CreateRouteFollowedStepdefs {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
                 .andDo(print());
+    }
+
+    @And("I don't have any RouteFollowed")
+    public void iDonTHaveAnyRouteFollowed() {
+        routeFollowedRepository.deleteAll();
     }
 }

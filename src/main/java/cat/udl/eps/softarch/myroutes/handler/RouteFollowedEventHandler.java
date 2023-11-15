@@ -11,6 +11,7 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Component
@@ -32,6 +33,7 @@ public class RouteFollowedEventHandler {
         List<Route> routeList = routeRepository.findByCreatedBy(user);
         if(!routeList.isEmpty())
             routeFollowed.setRouteOrigin(routeList.get(0));
+        routeFollowed.setDate(ZonedDateTime.now());
         logger.info("Creation of new routeFollowed: {}", routeFollowed);
     }
 
