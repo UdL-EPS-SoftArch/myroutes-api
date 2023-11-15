@@ -9,7 +9,9 @@ import java.util.Date;
 
 public class RouteFollowedUtil {
     public static RouteFollowed buildRoute(String date, String duration, String levelUp, String levelDown){
-        return setValuesToRoute(new RouteFollowed(),date, duration, levelUp, levelDown);
+        RouteFollowed route = new RouteFollowed();
+        route = setValuesToRoute(new RouteFollowed(),date, duration, levelUp, levelDown);
+        return route;
     }
 
     public static RouteFollowed setValuesToRoute(RouteFollowed route, String date, String duration, String levelUp, String levelDown){

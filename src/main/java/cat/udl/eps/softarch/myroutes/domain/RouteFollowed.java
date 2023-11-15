@@ -25,7 +25,7 @@ public class RouteFollowed extends UriEntity<Long> {
     private ZonedDateTime date;
 
     @NotNull
-    private Duration duration = Duration.parse("P1DT1H10M10.5S");
+    private Duration duration;
 
     @NotBlank
     private String levelUp;

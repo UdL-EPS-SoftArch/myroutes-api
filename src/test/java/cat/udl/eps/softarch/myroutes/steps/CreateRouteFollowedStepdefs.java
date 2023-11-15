@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.ZonedDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -29,13 +27,19 @@ public class CreateRouteFollowedStepdefs {
     @Autowired
     private UserRepository userRepository;
 
-    @When("I create a route-followed with date {string}, duration {string}, levelUp {string} and a levelDown {string}")
-    public void iCreateARoutefollowedWithDateDurationLevelupAndALeveldown(String date, String duration, String levelUp, String levelDown) throws Exception {
-        RouteFollowed route = RouteFollowedUtil.buildRoute(date,duration, levelUp, levelDown);
+    @When("I create a routeFollowed with date {string}, duration {string}, levelUp {string} and a levelDown {string}")
+    public void iCreateARouteFollowedWithDateDurationLevelUpAndALevelDown(String date, String duration, String levelUp, String levelDown) throws Exception {
+        RouteFollowed routeFollowed = RouteFollowedUtil.buildRoute(date,duration, levelUp, levelDown);
+        Iterable<Route> routesList = routeRepository.findAll();
+        Iterable<User> usersList = userRepository.findAll();
+        Route route = routesList.iterator().next();
+        User user = usersList.iterator().next();
+        routeFollowed.setRouteOrigin(route);
+        routeFollowed.setCreatedBy(user);
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routeFolloweds")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(stepDefs.mapper.writeValueAsString(route))
+                                .content(stepDefs.mapper.writeValueAsString(routeFollowed))
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(AuthenticationStepDefs.authenticate()))
