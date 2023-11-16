@@ -12,3 +12,8 @@ Feature: Delete RouteFollowed
     Given I'm not logged in
     When I try to delete RouteFollowed with user "user" and route "testRoute"
     Then The response code is 401
+
+  Scenario: Delete a RouteFollowed with user and route logged in
+    Given I login as "user" with password "password"
+    When I try to delete RouteFollowed with user "user" and route "testRoute"
+    Then The response code is 200
