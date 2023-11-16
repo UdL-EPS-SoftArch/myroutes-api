@@ -36,6 +36,12 @@ public class RouteFollowedUtil {
         return route;
     }
 
+    public static RouteFollowed getRouteFollowed(RouteFollowedRepository rfRepo, Long routeId){
+        List<RouteFollowed> routeFollowedList = rfRepo.findByIdContaining(routeId);
+        return routeFollowedList.get(0);
+    }
+
+
     public static RouteFollowed getRouteFollowed(RouteFollowedRepository rfRepo, Route route, User user){
         List<RouteFollowed> routeFollowedList = rfRepo.findByCreatedByAndRouteOrigin(user, route);
         return routeFollowedList.get(0);
