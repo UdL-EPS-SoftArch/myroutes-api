@@ -44,6 +44,8 @@ public class RouteFollowedUtil {
 
     public static RouteFollowed getRouteFollowed(RouteFollowedRepository rfRepo, Route route, User user){
         List<RouteFollowed> routeFollowedList = rfRepo.findByCreatedByAndRouteOrigin(user, route);
+        if(routeFollowedList.isEmpty())
+            return new RouteFollowed();
         return routeFollowedList.get(0);
     }
 }
