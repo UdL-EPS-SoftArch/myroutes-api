@@ -2,10 +2,15 @@ package cat.udl.eps.softarch.myroutes.steps;
 
 import cat.udl.eps.softarch.myroutes.domain.Route;
 import cat.udl.eps.softarch.myroutes.domain.RouteFollowed;
+import cat.udl.eps.softarch.myroutes.domain.User;
+import cat.udl.eps.softarch.myroutes.repository.RouteFollowedRepository;
+import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
+import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class RouteFollowedUtil {
     public static RouteFollowed buildRoute(String date, String duration, String levelUp, String levelDown){
@@ -29,5 +34,10 @@ public class RouteFollowedUtil {
         if(!levelDown.isBlank())
             route.setLevelDown(levelDown);
         return route;
+    }
+
+    public static RouteFollowed getRouteFollowed(RouteFollowedRepository rfRepo, Route route, User user){
+        List<RouteFollowed> routeFollowedList = rfRepo.findByCreatedByAndRouteOrigin(user, route);
+        return routeFollowedList.get(0);
     }
 }

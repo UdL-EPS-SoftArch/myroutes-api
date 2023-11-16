@@ -8,6 +8,7 @@ import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -53,5 +54,13 @@ public class CreateRouteFollowedStepdefs {
     @And("I don't have any RouteFollowed")
     public void iDonTHaveAnyRouteFollowed() {
         routeFollowedRepository.deleteAll();
+    }
+
+    @Given("There is a routeFollowed with date {string}, duration {string}, levelUp {string} and a levelDown {string}, by user username {string} and route title {string}")
+    public void thereIsARouteFollowedWithDateDurationLevelUpAndALevelDownByUserUsernameAndRouteTitle(String date, String duration, String levelUp, String levelDown, String user, String route) {
+        RouteFollowed routeFollowed = RouteFollowedUtil.buildRoute(date,duration,levelUp,levelDown);
+        routeFollowed.setCreatedBy(userRepository.findById(user).get());
+        routeFollowed.setRouteOrigin(routeRepository.findByTitle(route).get(0));
+        routeFollowedRepository.save(routeFollowed);
     }
 }
