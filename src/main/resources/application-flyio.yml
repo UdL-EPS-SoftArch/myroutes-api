@@ -1,4 +1,19 @@
-allowed-origins: "https://myroutes-softarch.netlify.app,https://deploy-preview-*--myroutes-softarch.netlify.app"
+allowed-origins: "https://myroutes-softarch.netlify.app, https://deploy-preview-*--myroutes-softarch.netlify.app"
+
+server:
+    forward-headers-strategy: NATIVE
+
+spring:
+    datasource:
+        driverClassName: org.postgresql.Driver
+        initialSize: 5
+        maxActive: 10
+        maxIdle: 5
+        minIdle: 2
+        removeAbandoned: true
+    jpa:
+        hibernate:
+            ddl-auto: update
 
 logging:
     level:
