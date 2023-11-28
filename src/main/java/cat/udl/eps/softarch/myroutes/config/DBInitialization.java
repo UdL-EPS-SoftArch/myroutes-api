@@ -33,7 +33,7 @@ public class DBInitialization {
             user.encodePassword();
             userRepository.save(user);
         }
-        if (!adminRepository.existsById("admin")) {
+        if (!adminRepository.existsById("root")) {
             Admin admin = new Admin();
             admin.setEmail("admin@sample.app");
             admin.setId("admin");
