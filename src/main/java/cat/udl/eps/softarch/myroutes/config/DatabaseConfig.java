@@ -20,7 +20,8 @@ public class DatabaseConfig {
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +
+                "?sslmode=disable";
 
         DataSource basicDataSource = new DataSource();
         basicDataSource.setUrl(dbUrl);
