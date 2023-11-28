@@ -1,5 +1,7 @@
 app = "myroutes-api"
 
+swap_size_mb = 512
+
 # [build]
 #   image = "udlepssoftarch/myroutes-api:latest"
 

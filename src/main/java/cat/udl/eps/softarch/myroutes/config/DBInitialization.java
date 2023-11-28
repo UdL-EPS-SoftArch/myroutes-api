@@ -35,8 +35,8 @@ public class DBInitialization {
         }
         if (!adminRepository.existsById("root")) {
             Admin admin = new Admin();
-            admin.setEmail("admin@sample.app");
-            admin.setId("admin");
+            admin.setEmail("root@myroutes.app");
+            admin.setId("root");
             admin.setPassword(defaultPassword);
             admin.encodePassword();
             adminRepository.save(admin);
