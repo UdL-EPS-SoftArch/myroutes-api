@@ -22,7 +22,7 @@ Feature: Update Route
   Scenario: Update a route while logged in as admin
     Given I login as "admin" with password "password"
     When I update a route with a title "testRoute", description "route description", type "Running" and a creationDate "2023-10-25T17:27:00Z"
-    Then The response code is 401
+    Then The response code is 403
 
   Scenario: Update a route while logged in as reviewer
     Given I login as "reviewer" with password "password"

@@ -24,7 +24,7 @@ Feature: Create Route
     Given I login as "admin" with password "password"
     And I don't have any route
     When I create a route with a title "testRoute", description "route description", type "Running" and a creationDate "2023-10-25T17:27:00Z"
-    Then The response code is 401
+    Then The response code is 403
 
   Scenario: Create an empty route while logged in
     Given I login as "user" with password "password"
