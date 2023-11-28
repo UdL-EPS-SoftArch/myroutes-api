@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 public class UpdateRouteVersionStepDef {
@@ -28,7 +28,7 @@ public class UpdateRouteVersionStepDef {
 
     @Autowired
     private RouteRepository routeRepository;
-    @When("I update a creationDate RouteVersion whit a Route title {string}")
+    @When("I update a creationDate RouteVersion whit a Route title {string} using PATCH")
     public void iUpdateARouteVersionWhitARouteTitle(String routeTitle) throws Exception {
         Route route = routeRepository.findByTitle(routeTitle).get(0);
         RouteVersion routeVersion = routeVersionRepository.findByversionOf(route).get(0);
@@ -40,6 +40,22 @@ public class UpdateRouteVersionStepDef {
                         .accept(MediaType.APPLICATION_JSON)
                         .with(AuthenticationStepDefs.authenticate()))
                         .andDo(print());
+
+
+    }
+
+    @When("I update a creationDate RouteVersion whit a Route title {string} using PUT")
+    public void iUpdateARouteVersionWhitARouteTitlePOST(String routeTitle) throws Exception {
+        Route route = routeRepository.findByTitle(routeTitle).get(0);
+        RouteVersion routeVersion = routeVersionRepository.findByversionOf(route).get(0);
+
+        stepDefs.result = stepDefs.mockMvc.perform(put(routeVersion.getUri())//"/routes/"+route.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new JSONObject().put("creationDate","2022-10-25T17:27:00Z").toString())
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(AuthenticationStepDefs.authenticate()))
+                .andDo(print());
 
 
     }
