@@ -35,6 +35,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/routes").hasRole(Role.USER.toString())
                 .requestMatchers(HttpMethod.POST,"/routes/*").denyAll()
                 .requestMatchers(HttpMethod.POST, "/**/*").authenticated()
+                .requestMatchers(HttpMethod.PUT,"/routeVersions/*").denyAll()
                 .requestMatchers(HttpMethod.PUT, "/**/*").authenticated()
                 .requestMatchers(HttpMethod.PATCH,"/routeVersions/*").denyAll()
                 .requestMatchers(HttpMethod.PATCH,"/routes/*").hasRole(Role.USER.toString())
