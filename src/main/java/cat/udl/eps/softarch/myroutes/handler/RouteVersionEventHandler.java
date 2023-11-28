@@ -6,6 +6,7 @@ import cat.udl.eps.softarch.myroutes.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -25,5 +26,4 @@ public class RouteVersionEventHandler {
         routeVersion.setCreationDate(ZonedDateTime.now());
         logger.info("Creation of new routeVersion: {}", routeVersion);
     }
-
 }
