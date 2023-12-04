@@ -1,6 +1,8 @@
 package cat.udl.eps.softarch.myroutes.config;
+import cat.udl.eps.softarch.myroutes.domain.Admin;
 import cat.udl.eps.softarch.myroutes.domain.User;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
+import cat.udl.eps.softarch.myroutes.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import jakarta.annotation.PostConstruct;
@@ -13,9 +15,11 @@ public class DBInitialization {
     @Value("${spring.profiles.active:}")
     private String activeProfiles;
     private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
-    public DBInitialization(UserRepository userRepository) {
+    public DBInitialization(UserRepository userRepository, AdminRepository adminRepository) {
         this.userRepository = userRepository;
+        this.adminRepository = adminRepository;
     }
 
     @PostConstruct
@@ -28,6 +32,14 @@ public class DBInitialization {
             user.setPassword(defaultPassword);
             user.encodePassword();
             userRepository.save(user);
+        }
+        if (!adminRepository.existsById("root")) {
+            Admin admin = new Admin();
+            admin.setEmail("root@myroutes.app");
+            admin.setId("root");
+            admin.setPassword(defaultPassword);
+            admin.encodePassword();
+            adminRepository.save(admin);
         }
         if (Arrays.asList(activeProfiles.split(",")).contains("test")) {
             // Testing instances
