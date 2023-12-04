@@ -13,4 +13,5 @@ public interface RouteRepository extends CrudRepository<Route, Long>, PagingAndS
     List<Route> findByCreatedBy(@Param("creator") User creator);
     List<Route> findByTitle(@Param("title") String title);
     List<Route> findByTitleContainingIgnoreCase(@Param("title") String title);
+    List<Route> findByType(@Param("type") Route.Type type);
 }
