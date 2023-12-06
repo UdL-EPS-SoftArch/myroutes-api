@@ -1,6 +1,8 @@
 package cat.udl.eps.softarch.myroutes.config;
 import cat.udl.eps.softarch.myroutes.domain.Admin;
+import cat.udl.eps.softarch.myroutes.domain.Coordinate;
 import cat.udl.eps.softarch.myroutes.domain.User;
+import cat.udl.eps.softarch.myroutes.repository.CoordinateRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 import cat.udl.eps.softarch.myroutes.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +18,12 @@ public class DBInitialization {
     private String activeProfiles;
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
+    private final CoordinateRepository coordinateRepository;
 
-    public DBInitialization(UserRepository userRepository, AdminRepository adminRepository) {
+    public DBInitialization(UserRepository userRepository, AdminRepository adminRepository, CoordinateRepository coordinateRepository) {
         this.userRepository = userRepository;
         this.adminRepository = adminRepository;
+        this.coordinateRepository = coordinateRepository;
     }
 
     @PostConstruct
@@ -50,6 +54,15 @@ public class DBInitialization {
                 user.setPassword(defaultPassword);
                 user.encodePassword();
                 userRepository.save(user);
+            }
+        }
+        if (coordinateRepository.count() == 0){
+            int i = 0;
+            while (coordinateRepository.count() < 20){
+                Coordinate c = new Coordinate();
+                c.setCoordinate("41.40338,2." + (17403+i));
+                coordinateRepository.save(c);
+                i++;
             }
         }
     }
