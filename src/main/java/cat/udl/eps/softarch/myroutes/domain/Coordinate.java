@@ -2,6 +2,7 @@ package cat.udl.eps.softarch.myroutes.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,6 +12,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.ZonedDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -29,5 +32,10 @@ public class Coordinate extends UriEntity<Long> {
     @ManyToOne
     @JsonIdentityReference(alwaysAsId = true)
     private RouteVersion routeVersion;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @GeneratedValue()
+    @NotNull
+    private ZonedDateTime creationDate = ZonedDateTime.now();
 
 }
