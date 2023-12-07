@@ -12,6 +12,6 @@ import java.util.List;
 @RepositoryRestResource
 public interface CoordinateRepository extends CrudRepository<Coordinate, Long>, PagingAndSortingRepository<Coordinate, Long> {
     List<Coordinate> findByRouteVersion(@Param("routeVersion") RouteVersion routeVersion);
-    List<Coordinate> findByCoordinate(@Param("coordinate") String coordinate);
+    List<Coordinate> findByCoordinateContainingIgnoreCase(@Param("coordinate") String coordinate);
 
 }
