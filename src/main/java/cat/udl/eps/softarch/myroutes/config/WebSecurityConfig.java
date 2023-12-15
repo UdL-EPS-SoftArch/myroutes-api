@@ -31,6 +31,11 @@ public class WebSecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((auth) -> auth
                 .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/coordinates").authenticated()
+                .requestMatchers(HttpMethod.POST,"/coordinates").authenticated()
+                .requestMatchers(HttpMethod.POST, "/coordinates/*").authenticated()
+                .requestMatchers(HttpMethod.DELETE,"/coordinates/*").hasRole(Role.ADMIN.toString())
+                .requestMatchers(HttpMethod.PATCH,"/coordinates/*").authenticated()
                 .requestMatchers(HttpMethod.GET, "/identity").authenticated()
                 .requestMatchers(HttpMethod.POST, "/users").anonymous()
                 .requestMatchers(HttpMethod.POST, "/users/*").denyAll()

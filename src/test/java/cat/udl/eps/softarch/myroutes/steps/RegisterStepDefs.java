@@ -7,7 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import cat.udl.eps.softarch.myroutes.domain.Admin;
 import cat.udl.eps.softarch.myroutes.domain.User;
+import cat.udl.eps.softarch.myroutes.repository.AdminRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -26,6 +28,9 @@ public class RegisterStepDefs {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private AdminRepository adminRepository;
 
   @Given("^There is no registered user with username \"([^\"]*)\"$")
   public void thereIsNoRegisteredUserWithUsername(String user) {
@@ -110,4 +115,15 @@ public class RegisterStepDefs {
             .andExpect(status().isNotFound());
   }
 
+  @Given("There is a registered admin user with username {string} and password {string} and email {string}")
+  public void thereIsARegisteredAdminUserWithUsernameAndPasswordAndEmail(String username, String password, String email) {
+    if (!adminRepository.existsById(username)) {
+      Admin user = new Admin();
+      user.setEmail(email);
+      user.setId(username);
+      user.setPassword(password);
+      user.encodePassword();
+      adminRepository.save(user);
+    }
+  }
 }

@@ -4,7 +4,7 @@ Feature: Delete Coordinate
   I want to delete coordinate and check throw errors
 
   Background:
-    Given There is a registered user with username "username" and password "password" and email "user@domain.com"
+    Given There is a registered admin user with username "username" and password "password" and email "user@domain.com"
     And I create a new valid Coordinate
 
   Scenario: Delete coordinate

@@ -56,14 +56,5 @@ public class DBInitialization {
                 userRepository.save(user);
             }
         }
-        if (coordinateRepository.count() == 0){
-            int i = 0;
-            while (coordinateRepository.count() < 20){
-                Coordinate c = new Coordinate();
-                c.setCoordinate("41.40338,2." + (17403+i));
-                coordinateRepository.save(c);
-                i++;
-            }
-        }
     }
 }
