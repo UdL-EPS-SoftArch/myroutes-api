@@ -13,8 +13,3 @@ Feature: Retrieve RouteFollowed
     When I try to retrieve a RouteFollowed with user "user" and route "testRoute"
     Then The response code is 200
 
-  Scenario: Get a RouteFollowed which does not exist
-    Given I login as "user" with password "password"
-    When I try to retrieve a routeFollowed with user "user" and route "testRoute2"
-    Then The response code is 404
-

@@ -32,7 +32,7 @@ public class RouteFollowedEventHandler {
         routeFollowed.setCreatedBy(user);
         List<Route> routeList = routeRepository.findByCreatedBy(user);
         if(!routeList.isEmpty())
-            routeFollowed.setRouteOrigin(routeList.get(0));
+            routeFollowed.setFollows(routeList.get(0).getUri());
         routeFollowed.setDate(ZonedDateTime.now());
         logger.info("Creation of new routeFollowed: {}", routeFollowed);
     }

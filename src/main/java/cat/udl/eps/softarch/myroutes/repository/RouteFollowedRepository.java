@@ -1,6 +1,5 @@
 package cat.udl.eps.softarch.myroutes.repository;
 
-import cat.udl.eps.softarch.myroutes.domain.Route;
 import cat.udl.eps.softarch.myroutes.domain.RouteFollowed;
 import cat.udl.eps.softarch.myroutes.domain.User;
 import org.springframework.data.repository.CrudRepository;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public interface RouteFollowedRepository extends CrudRepository<RouteFollowed, Long>, PagingAndSortingRepository<RouteFollowed, Long> {
     List<RouteFollowed> findByIdContaining(@Param("long") Long id);
-    List<Route> findByCreatedBy(@Param("creator") User creator);
-    List<User> findByRouteOrigin(@Param("origin") Route origin);
-    List<RouteFollowed> findByCreatedByAndRouteOrigin(@Param("creator") User creator, @Param("origin") Route origin);
+    List<String> findByCreatedBy(@Param("creator") User creator);
+    List<User> findByFollows(@Param("follows") String follows);
+    List<RouteFollowed> findByCreatedByAndFollows(@Param("creator") User creator, @Param("follows") String follows);
 }

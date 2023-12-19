@@ -40,7 +40,6 @@ public class RouteFollowed extends UriEntity<Long> {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @NotNull
-    @ManyToOne
-    public Route routeOrigin;
+    public String follows;
 
 }
