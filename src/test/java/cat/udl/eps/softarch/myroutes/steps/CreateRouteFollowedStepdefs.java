@@ -38,7 +38,7 @@ public class CreateRouteFollowedStepdefs {
         Iterable<User> usersList = userRepository.findAll();
         Route route = routesList.iterator().next();
         User user = usersList.iterator().next();
-        routeFollowed.setFollows(route.getUri());
+        routeFollowed.setFollows(route);
         routeFollowed.setCreatedBy(user);
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routeFolloweds")
@@ -59,7 +59,7 @@ public class CreateRouteFollowedStepdefs {
     public void thereIsARouteFollowedWithDateDurationLevelUpAndALevelDownByUserUsernameAndRouteTitle(String date, String duration, String levelUp, String levelDown, String user, String route) {
         RouteFollowed routeFollowed = RouteFollowedUtil.buildRoute(date,duration,levelUp,levelDown);
         routeFollowed.setCreatedBy(userRepository.findById(user).get());
-        routeFollowed.setFollows(routeRepository.findByTitle(route).get(0).getUri());
+        routeFollowed.setFollows(routeRepository.findByTitle(route).get(0));
         routeFollowedRepository.save(routeFollowed);
     }
 }
