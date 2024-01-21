@@ -12,6 +12,6 @@ import java.util.List;
 public interface RouteFollowedRepository extends CrudRepository<RouteFollowed, Long>, PagingAndSortingRepository<RouteFollowed, Long> {
     List<RouteFollowed> findByIdContaining(@Param("long") Long id);
     List<RouteFollowed> findByCreatedBy(@Param("creator") User creator);
-    List<User> findByFollows(@Param("follows") Route follows);
+    List<RouteFollowed> findByFollows(@Param("follows") Route follows);
     List<RouteFollowed> findByCreatedByAndFollows(@Param("creator") User creator, @Param("follows") Route follows);
 }

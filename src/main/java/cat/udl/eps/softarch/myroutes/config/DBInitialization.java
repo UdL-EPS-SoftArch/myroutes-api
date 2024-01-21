@@ -1,6 +1,8 @@
 package cat.udl.eps.softarch.myroutes.config;
 import cat.udl.eps.softarch.myroutes.domain.Admin;
+import cat.udl.eps.softarch.myroutes.domain.Coordinate;
 import cat.udl.eps.softarch.myroutes.domain.User;
+import cat.udl.eps.softarch.myroutes.repository.CoordinateRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
 import cat.udl.eps.softarch.myroutes.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +18,12 @@ public class DBInitialization {
     private String activeProfiles;
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
+    private final CoordinateRepository coordinateRepository;
 
-    public DBInitialization(UserRepository userRepository, AdminRepository adminRepository) {
+    public DBInitialization(UserRepository userRepository, AdminRepository adminRepository, CoordinateRepository coordinateRepository) {
         this.userRepository = userRepository;
         this.adminRepository = adminRepository;
+        this.coordinateRepository = coordinateRepository;
     }
 
     @PostConstruct

@@ -6,7 +6,6 @@ import cat.udl.eps.softarch.myroutes.domain.User;
 import cat.udl.eps.softarch.myroutes.repository.RouteFollowedRepository;
 import cat.udl.eps.softarch.myroutes.repository.RouteRepository;
 import cat.udl.eps.softarch.myroutes.repository.UserRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -39,7 +38,7 @@ public class CreateRouteFollowedStepdefs {
         Iterable<User> usersList = userRepository.findAll();
         Route route = routesList.iterator().next();
         User user = usersList.iterator().next();
-        routeFollowed.setRouteOrigin(route);
+        routeFollowed.setFollows(route);
         routeFollowed.setCreatedBy(user);
         stepDefs.result = stepDefs.mockMvc.perform(
                         post("/routeFolloweds")
@@ -60,7 +59,7 @@ public class CreateRouteFollowedStepdefs {
     public void thereIsARouteFollowedWithDateDurationLevelUpAndALevelDownByUserUsernameAndRouteTitle(String date, String duration, String levelUp, String levelDown, String user, String route) {
         RouteFollowed routeFollowed = RouteFollowedUtil.buildRoute(date,duration,levelUp,levelDown);
         routeFollowed.setCreatedBy(userRepository.findById(user).get());
-        routeFollowed.setRouteOrigin(routeRepository.findByTitle(route).get(0));
+        routeFollowed.setFollows(routeRepository.findByTitle(route).get(0));
         routeFollowedRepository.save(routeFollowed);
     }
 }
